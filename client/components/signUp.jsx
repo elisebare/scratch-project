@@ -22,11 +22,11 @@ function SignUp(props) {
       },
       body: JSON.stringify(body)
     })
-    .then(res => {
-      if (res.status === 200) props.handleLogIn();
-      // set logged in state to true
-    })
-    .catch(err => console.log('error in fetch request', err));
+      .then(res => {
+        if (res.status === 200) props.handleLogIn();
+        // set logged in state to true
+      })
+      .catch(err => console.log('error in fetch request', err));
     // props.handleLogIn();
   }
   // return:
@@ -36,8 +36,8 @@ function SignUp(props) {
   return (
     <div id="sign-up">
       <div className="img-container">
-          <img src="./images/Axolotl-Wallet.png" width="300px" height="300px"></img>
-        </div>
+        <img src="./images/Axolotl-Wallet.png" width="300px" height="300px"></img>
+      </div>
       <h1 className="title">Axolota Articles</h1>
       <h2 className="tagline">The Official Internet Wallet</h2>
       <form onSubmit={handleSubmit}>

@@ -28,6 +28,7 @@ app.get('/', (req, res) => {
 
 // create a post route '/signup'
 app.post('/signup', userController.createUser, cookieController.setCookie, sessionController.startSession, (req, res) => {
+  console.log('in signup')
   // respond with status 200
   res.status(200).send('User created.');
 });
@@ -42,11 +43,13 @@ app.post('/login', userController.verifyUser, cookieController.setCookie, sessio
 //   res.status(200).send('User logged in.');
 // });
 app.post('/links', linkController.addLinks, (req, res) => {
+  console.log('in links callback route')
   res.status(200).send('Link added to database');
 });
 
 //TODO: intended to be authorized routes must verify users Need a new middleware to check that cookie id matches session id
 app.get('/links/top3list', linkController.getTop3, (req, res) => {
+  console.log('in links top3 callback')
   console.log("Cookies: ", req.cookies);
   res.status(200).json(res.locals.top3);
 });
@@ -58,7 +61,10 @@ app.get('/getArticles/:priority', linkController.getLinks, (req, res) => {
 
 
 // bad route error handling
-app.use((req, res) => res.sendStatus(404));
+app.use((req, res) => {
+  console.log('we are in a bad route')
+  res.sendStatus(404)
+});
 
 // global error handling
 app.use((err, req, res, next) => {
@@ -74,4 +80,4 @@ app.use((err, req, res, next) => {
 
 // telling server which port to listen on
 // starts the server; binding app to port and listens on port 3000 for connections
-app.listen(process.env.PORT, () => console.log('app is a badass mf!'))
+app.listen(3000, () => console.log('app is a badass mf!'))

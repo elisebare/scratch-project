@@ -14,7 +14,7 @@ module.exports = {
     proxy: {
       '/api': {
         target: 'http://localhost:3000',
-        pathRewrite: {'^/api' : ''}
+        pathRewrite: { '^/api': '' }
       }
     },
     contentBase: './client'
@@ -24,9 +24,9 @@ module.exports = {
   // telling webpack how to read and use loaders on our files
   module: {
     rules: [
-      { 
+      {
         //translates ES6 to ES5 javascript
-        test: /\.jsx?$/, 
+        test: /\.jsx?$/,
         exclude: /(node_modules)/,
         use: {
           loader: 'babel-loader',
@@ -37,7 +37,7 @@ module.exports = {
       },
       //translates sass to css to style
       {
-        test: /\.s?css$/i, 
+        test: /\.s?css$/i,
         use: [
           'style-loader',
           'css-loader',
