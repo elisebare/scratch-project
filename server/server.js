@@ -65,6 +65,11 @@ app.delete('/delete', linkController.deleteLinks, (req, res) => {
   res.status(200).json('deleted!')
 })
 
+app.delete('/logout', sessionController.endSession, cookieController.deleteCookie, (req, res) => {
+  console.log('in the logout callback!');
+  res.status(200).json('we out! cookie deleted!')
+})
+
 //update link
 app.patch('/update', linkController.updateLinks, (req, res) => {
   console.log('in update links callback')
