@@ -49,7 +49,7 @@ class Article extends Component {
     console.log(this.props)
     return (
       <span id={this.props.id} className="article" >
-        { this.state.openModal ? (<UpdateModal handleFlag={this.props.handleFlag} id={this.props.id} handleUpdateClick={this.handleUpdateClick} />) : null}
+        { this.state.openModal ? (<UpdateModal toggleButton={this.props.toggleButton} handleFlag={this.props.handleFlag} id={this.props.id} handleUpdateClick={this.handleUpdateClick} />) : null}
         <a href={this.props.url} target="_blank"> {this.props.title} </a>
         <button className="update-btn" onClick={this.handleUpdateClick}>Update</button>
         <button id={this.props.id} className="delete-btn" onClick={this.handleDeleteClick}>x</button>

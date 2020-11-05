@@ -12,8 +12,11 @@ function UpdateModal(props) {
   const [priority, setPriority] = useState("");
 
   //TODO: need route from the backend to update 
+  console.log("these are the props from upate modal", props)
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log('in handle submit')
+    console.log('this is the article_id:', props.id)
     // put request function here with new info from form
     fetch('/api/update', {
       method: 'PATCH',
@@ -42,17 +45,17 @@ function UpdateModal(props) {
 
   return (
     <div className="update-modal">
-      <form onSubmit={handleSubmit}>
+      <form>
         <input className="input-update" type="text" value={title} placeholder="title" onChange={(e) => setTitle(e.target.value)} />
         <input className="input-update" type="text" value={url} placeholder="url" onChange={(e) => setUrl(e.target.value)} />
-        <input className="input-update" type="text" value={description} placeholder = "description" onChange={(e) => setDescription(e.target.value)} />
+        <input className="input-update" type="text" value={description} placeholder="description" onChange={(e) => setDescription(e.target.value)} />
         <select className="update-priority" value={priority} onChange={(e) => setPriority(e.target.value)}>
           <option>Priority</option>
           <option value="high">High</option>
           <option value="medium">Medium</option>
           <option value="low">Low</option>
         </select>
-        <button className="update-modal-btn">Update</button>
+        <button className="update-modal-btn" onClick={handleSubmit}>Update</button>
       </form>
     </div>
   )
