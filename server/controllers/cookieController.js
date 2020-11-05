@@ -11,5 +11,12 @@ cookieController.setCookie = (req, res, next) => {
   return next();
 };
 
+// delete the cookie
+cookieController.deleteCookie = (req, res, next) => {
+  //clearing the session id cookie from cookies
+  res.clearCookie('ssid');
+  return next();
+}
+
 module.exports = cookieController;
 
