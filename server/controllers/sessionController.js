@@ -24,4 +24,27 @@ sessionController.startSession = (req, res, next) => {
     });
 };
 
+//end session on logout
+sessionController.endSession = (req, res, next) => {
+  //make a query to delete by cookie id
+  const sessionQuery = `DELETE FROM cookie_sessions WHERE cookie_id = $1;`
+
+  //get the cookie id from the request
+  const id = Number(req.cookies.ssid);
+  console.log('the cookie id is ', id)
+  console.log('the cookie id type is', typeof id)
+
+  db.query(sessionQuery, [id])
+    .then(res => {
+      console.log('logout query was successful');
+      return next();
+    })
+    .catch(err => {
+      console.log(err)
+      //return err to global error handler
+      return next({err});
+    })
+
+}
+
 module.exports = sessionController;
