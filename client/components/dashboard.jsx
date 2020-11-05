@@ -19,9 +19,9 @@ function Dashboard(props) {
         <Top3list handleFlag={props.handleFlag} flag={props.flag} />
       </div>
       <div id="dropdown-container">
-        <Dropdown text="High Priority" />
-        <Dropdown text="Medium Priority" />
-        <Dropdown text="Low Priority" />
+        <Dropdown handleFlag={props.handleFlag} text="High Priority" />
+        <Dropdown handleFlag={props.handleFlag} text="Medium Priority" />
+        <Dropdown handleFlag={props.handleFlag} text="Low Priority" />
       </div>
     </div>
   )

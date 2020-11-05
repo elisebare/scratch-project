@@ -43,9 +43,9 @@ function UpdateModal(props) {
   return (
     <div className="update-modal">
       <form onSubmit={handleSubmit}>
-        <input className="input-update" type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
-        <input className="input-update" type="text" value={url} onChange={(e) => setUrl(e.target.value)} />
-        <input className="input-update" type="text" value={description} onChange={(e) => setDescription(e.target.value)} />
+        <input className="input-update" type="text" value={title} placeholder="title" onChange={(e) => setTitle(e.target.value)} />
+        <input className="input-update" type="text" value={url} placeholder="url" onChange={(e) => setUrl(e.target.value)} />
+        <input className="input-update" type="text" value={description} placeholder = "description" onChange={(e) => setDescription(e.target.value)} />
         <select className="update-priority" value={priority} onChange={(e) => setPriority(e.target.value)}>
           <option>Priority</option>
           <option value="high">High</option>

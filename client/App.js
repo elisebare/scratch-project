@@ -24,7 +24,8 @@ class App extends Component {
     let { isLoggedIn, isSignedUp } = this.state;
     isSignedUp = true;
     //setState changes the state- if isLogged is true, it's changing it to false. And if isSignedUp is true, it's keeping its value as true?
-    this.setState({ isLoggedIn: !isLoggedIn, isSignedUp: isSignedUp }); 
+    //reset flag to false so the fetch request for top3 runs
+    this.setState({ isLoggedIn: !isLoggedIn, isSignedUp: isSignedUp, flag: false }); 
 
   }
 
