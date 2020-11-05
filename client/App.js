@@ -14,13 +14,45 @@ class App extends Component {
     this.handleLogIn = this.handleLogIn.bind(this);  // binding the functionality to the constructor
     this.handleSignUp = this.handleSignUp.bind(this);
     //binding handle flag 
-    this.handleFlag = this.handleFlag.bind(this)
+    this.handleFlag = this.handleFlag.bind(this);
+    //binding logout
+    this.handleLogOut = this.handleLogOut.bind(this);
   }
 
   handleLogIn() {
+    //deconstructing properties in state
     let { isLoggedIn, isSignedUp } = this.state;
     isSignedUp = true;
-    this.setState({ isLoggedIn: !isLoggedIn, isSignedUp: isSignedUp }); //setState changes the steate- if isLogged is true, it's changing it to false. And if isSignedUp is true, it's keeping its value as true?
+    //setState changes the state- if isLogged is true, it's changing it to false. And if isSignedUp is true, it's keeping its value as true?
+    this.setState({ isLoggedIn: !isLoggedIn, isSignedUp: isSignedUp }); 
+
+  }
+
+  //will do a fetch request to server to delete session id (in db) and cookie id (in cookie storage)
+  handleLogOut () {
+    //make isLoggedIn false
+    //fetch request
+    fetch('/api/logout', {
+      method: 'DELETE', 
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      // not sending any data to server at this time
+      // body: {
+      //   JSON.stringify({})
+      // }
+    })
+    .then(res => {
+      console.log('reached the next promise after fetching logout. about to set state')
+      //re render login html page
+      this.setState({
+        ...this.state,
+        isLoggedIn: false,
+      })
+    })
+    .catch(err => {
+      console.log('error returned by logout fetch: ', err)
+    })
   }
 
   handleSignUp() {
@@ -58,7 +90,7 @@ class App extends Component {
     } else if (isLoggedIn) {
       return (
         <div>
-          <Dashboard handleFlag={this.handleFlag} flag={this.state.flag} handleLogIn={this.handleLogIn} />
+          <Dashboard handleLogOut= {this.handleLogOut} handleFlag={this.handleFlag} flag={this.state.flag} handleLogIn={this.handleLogIn} />
         </div>
       )
     } else {
