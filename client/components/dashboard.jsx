@@ -7,8 +7,8 @@ function Dashboard(props) {
   // console.log('rendering dashboard')
   return (
     <div id="dashboard">
-      <div id="logout-container">
-        <button id="logout-btn" onClick={() => props.handleLogIn()}>Log Out</button>
+      <div id="logout-container" className = "logout">
+        <button id="logout-btn" onClick={() => props.handleLogOut()}>Log Out</button>
       </div>
       <div className="img-container">
         <img src="./images/Axolotl-Wallet.png" width="200px" height="200px"></img>
