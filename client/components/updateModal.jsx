@@ -6,45 +6,55 @@ import React, { useState } from 'react';
 // modal will have a separate button to exit out of modal without updating (changing state to false)
 
 function UpdateModal(props) {
-  const[title, setTitle] = useState("");
-  const[url, setUrl] = useState("");
-  const[description, setDescription] = useState("");
-  const[priority, setPriority] = useState("");
+  const [title, setTitle] = useState("");
+  const [url, setUrl] = useState("");
+  const [description, setDescription] = useState("");
+  const [priority, setPriority] = useState("");
 
   //TODO: need route from the backend to update 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
     // put request function here with new info from form
-    // fetch('/api/update', {
-    //   method: 'PUT',
-    //   headers : {
-    //     "Content-Type": "Application/JSON"
-    //   },
-    //   body: JSON.stringify(body)
-    // })
-    // .then(res => {
-    //   if (res.status === 200) props.handleUpdateClick();
-    // })
-    // .catch(err => console.log('error in fetch request', err));
+    fetch('/api/update', {
+      method: 'PATCH',
+      headers: {
+        "Content-Type": "Application/JSON"
+      },
+      body: JSON.stringify({
+        title: title,
+        url: url,
+        description: description,
+        priority: priority,
+        article_id: props.id
+      })
+    })
+      .then(res => {
+        if (res.status === 200) {
+          props.handleUpdateClick()
+          props.handleFlag()
+        }
+        ;
+      })
+      .catch(err => console.log('error in fetch request', err));
     props.handleUpdateClick();
   };
 
 
   return (
-  <div className="update-modal">
-    <form onSubmit={handleSubmit}>
-      <input className="input-update" type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
-      <input className="input-update" type="text" value={url} onChange={(e) => setUrl(e.target.value)} />
-      <input className="input-update" type="text" value={description} onChange={(e) => setDescription(e.target.value)} />
-      <select className="update-priority" value={priority} onChange={(e) => setPriority(e.target.value)}>
+    <div className="update-modal">
+      <form onSubmit={handleSubmit}>
+        <input className="input-update" type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
+        <input className="input-update" type="text" value={url} onChange={(e) => setUrl(e.target.value)} />
+        <input className="input-update" type="text" value={description} onChange={(e) => setDescription(e.target.value)} />
+        <select className="update-priority" value={priority} onChange={(e) => setPriority(e.target.value)}>
           <option>Priority</option>
           <option value="high">High</option>
           <option value="medium">Medium</option>
           <option value="low">Low</option>
         </select>
-      <button className="update-modal-btn">Update</button>
-    </form>
-  </div>
+        <button className="update-modal-btn">Update</button>
+      </form>
+    </div>
   )
 }
 

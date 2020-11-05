@@ -23,7 +23,6 @@ CREATE TABLE links (
   url VARCHAR (255) NOT NULL,
   description VARCHAR (255),
   priority priority NOT NULL,
-  category VARCHAR (255) NOT NULL,
   user_id INT NOT NULL,
   CONSTRAINT user_id
   FOREIGN KEY (user_id)

@@ -10,12 +10,12 @@ userController.createUser = (req, res, next) => {
   RETURNING
     user_id
   `;
-    console.log("body email: ", req.body.email, "body password:", req.body.password);
+  console.log("body email: ", req.body.email, "body password:", req.body.password);
   // destructure email and password from req.body
   const { email, password } = req.body;
   // encrypt password
-  bcrypt.genSalt(10, function(err, salt) {
-    bcrypt.hash(password, salt, function(err, hash) {
+  bcrypt.genSalt(10, function (err, salt) {
+    bcrypt.hash(password, salt, function (err, hash) {
       // store hash in db as password
       //query to insert a new user into the users table with email and
       db.query(newUserQuery, [email, hash])
@@ -38,16 +38,16 @@ userController.verifyUser = (req, res, next) => {
   db.query(verifyQuery, [email])
     .then((data) => {
       if (!data) {
-        res.redirect('/'); 
+        res.redirect('/');
       };
       const hash = data.rows[0].password;
       bcrypt.compare(password, hash)
         .then((response) => {
           console.log("bcrypt res: ", response)
           if (response) {
-          res.locals.id = data.rows[0].user_id;
-          console.log("res.locals.id = ", res.locals.id)
-          return next();
+            res.locals.id = data.rows[0].user_id;
+            console.log("res.locals.id = ", res.locals.id)
+            return next();
           };
           res.redirect('/');
         })

@@ -14,37 +14,46 @@ class Article extends Component {
   //TODO: need to add an update route on the backend
   handleUpdateClick() {
     let { openModal } = this.state;
-    this.setState({openModal : !openModal});
+    this.setState({ openModal: !openModal });
   }
 
-  //TODO: need to add a delete route on backend
-  handleDeleteClick(event) {
-    event.preventDefault();
+  //Handles deleting links
+  handleDeleteClick(e) {
+    e.preventDefault();
     // delete request
-    // fetch('/api/delete', {
-    //   method: 'DELETE',
-    //   headers: {
-    //       'Accept': 'application/json',
-    //       'Content-Type': 'application/json',
-    //   }
-    // })
-    console.log('deleted!')
+    fetch('/api/delete', {
+      method: 'DELETE',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        article_id: this.props.id
+      })
+    }).then((data => {
+      return data.json()
+    })).then((data => {
+      console.log('deleted', data)
+      this.props.handleFlag()
+    })).catch((err => {
+      console.log('error in trying to delete task', err)
+    }))
   }
-  
-  
-  
-  
-// needs title, url, update button, delete button
-// update button needs a handle click function
-// delete button needs a handle click function
+
+
+
+  // needs title, url, update button, delete button
+  // update button needs a handle click function
+  // delete button needs a handle click function
   render() {
-  return (
-    <span className="article">
-      {this.state.openModal ? (<UpdateModal handleUpdateClick={this.handleUpdateClick} />) : null}
-      <a href={this.props.url} target="_blank">{this.props.title}</a>
-      <button className="update-btn" onClick={this.handleUpdateClick}>Update</button>
-      <button className="delete-btn" onClick={this.handleDeleteClick}>x</button>
-    </span>
+    console.log(this.props)
+    return (
+      <span id={this.props.id} className="article" >
+        { this.state.openModal ? (<UpdateModal handleFlag={this.props.handleFlag} id={this.props.id} handleUpdateClick={this.handleUpdateClick} />) : null}
+        <a href={this.props.url} target="_blank"> {this.props.title} </a>
+        <button className="update-btn" onClick={this.handleUpdateClick}>Update</button>
+        <button id={this.props.id} className="delete-btn" onClick={this.handleDeleteClick}>x</button>
+      </span>
     )
   }
 }
